@@ -1,0 +1,209 @@
+create database SolarSimulation;
+use SolarSimulation;
+
+-- Passo 1;
+
+create table Cliente(
+Nome varchar(30) not null,
+Email varchar(30) not null,
+DirecaoTelhado int(3),
+AnguloTelhado int(3),
+CoordenadaLo int(4),
+CoordenadaLa int(4),
+NivelAproveitamento int(3),
+Consumo int(4),
+ValorReais int(4),
+PRIMARY KEY (Email),
+CHECK(ValorReais>=0),
+CHECK(Consumo>=0)
+);
+
+create table Empresa(
+EmpresaID int(4) AUTO_INCREMENT,
+Nome varchar(30) not null,
+Email varchar(30),
+Cidade varchar(30),
+Bairro varchar(15),
+Numero int(5),
+Rua varchar(30),
+PRIMARY KEY (EmpresaID)
+);
+
+Create table KitDeInstalacao(
+Codigo int(6) AUTO_INCREMENT,
+PotenciaNominal int(5) not null,
+Preco real,
+PRIMARY KEY (Codigo),
+CHECK(PotenciaNominal>=0),
+CHECK(Preco>=0)
+);
+
+-- Passo 2;
+
+-- Passo 3;
+
+-- Passo 4;
+
+-- Passo 5;
+
+create table KitPossuido(
+Empresa_ID int(4),
+CodigoKit int(6),
+FOREIGN KEY (Empresa_ID) REFERENCES Empresa(EmpresaID),
+FOREIGN KEY (CodigoKIT) REFERENCES KitDeInstalacao(Codigo),
+PRIMARY KEY CLUSTERED (Empresa_ID, CodigoKit)
+);
+
+-- Passo 6;
+
+create table TelEmpresas(
+Telefone varchar(20),
+Empresa_ID int(4),
+FOREIGN KEY (Empresa_ID) REFERENCES Empresa(EmpresaID),
+PRIMARY KEY CLUSTERED (Empresa_ID, Telefone)
+);
+
+-- Passo 7;
+
+-- Populando tabelas
+
+-- Clientes
+insert into Cliente values
+('Pedro Sampaio Matias','pedro.matias@ee.ufcg.edu.br','99','9','1162','2121','94','195','159'),
+('Monaliza Corrêa Sobreira da Silva','monaliza.silva@ee.ufcg.edu.br','282','11','1381','2004','78','267','232'),
+('Danilo Freire de Souza Santos','danilo.santos@dee.ufcg.edu.br','103','13','1218','2120','74','232','201'),
+('João Sampaio Matias','joaosampaiomatias@gmail.com','89','15','1506','2027','53','230','200'),
+('Lucas Sales de Araújo Nunes','lucas.sales@ee.ufcg.edu.br','284','9','1426','2271','59','176','153'),
+('Telmo Gabriel de Jesus Torres de Melo','telmo.melo@ee.ufcg.edu.br','151','13','1470','2128','54','105','92'),
+('José Erison Furtado Matias','j.erison@gmail.com','208','15','1528','2353','78','90','78'),
+('Maria Jusceleide Sampaio Furtado','mariajusceleide@gmail.com','338','10','1224','2349','84','177','154'),
+('Dolores Almeida Oliveira','dolores.al@yahoo.com.br','70','12','1430','2256','55','296','258'),
+('Priscila Ferreira Lima','pri.fl@bol.com.br','188','8','1475','2265','62','206','179'),
+('Marina Lua Ferreira','marina.ferreira@ee.ufcg.edu.br','174','15','1293','2194','68','269','234'),
+('Isaque Pedro da Silva Junior','isaque.junior@ee.ufcg.edu.br','111','15','1499','2122','82','142','124'),
+('João Carlos Lima da Silva','joao.silva@ee.ufcg.edu.br','258','9','1384','2218','61','229','199'),
+('Camila Abrantes de Oliveira','camila.oliveira@ee.ufcg.edu.br','236','12','1415','2168','55','218','190'),
+('Calor Eduardo Tavares do Nascimento','eduarto_tvn@hotmail.com','325','14','1360','2277','96','243','212'),
+('Yago Alves de Lucena Lustosa','yagolustosa@hotmail.com','80','13','1264','2158','77','145','127');
+
+-- Empresas
+insert into Empresa values
+('1','Solar Nobre','solarnobre@gmail.com','João Pessoa','Centro','679','Rua Edson de Abreu'),
+('2','Solaris','solaris@solaris.com.br','João Pessoa','Bessa','176','Rua Álvaro'),
+('3','Soliens Virtual Academy','soliens@soliens.com.br','Campina Grande','Catolé','330','Rua General Aluísio de Almeida'),
+('4','Luminen Energia Solar','luminen@gmail.com','Campina Grande','São José','731','Rua Dr. Chateubriand'),
+('5','Viridis Engenharia','viridis.engenharia@outlook.com','Campina Grande','José Pinheiro','661','Rua João Quirino'),
+('6','MAIS S.E. - Soluções de Engenharia e Energia Solar','maisse@outlook.com','Campina Grande','Catolé','833','Rua Ariano Suassuna'),
+('7','Solar Tech','solartech@gmail.com','João Pessoa','Trincheiras','924','Rua Monsenhor Almeida'),
+('8','Elio Soluções','eliosolucoes@gmail.com','João Pessoa','Manaíra','841','Avenida Maria Rosa'),
+('9','Aton Energia Solar','aton@aton.com.br','Surubim','Cabaceira','69','Rua José Malaquias'),
+('10','Usina Sollar','sollar@usinasollar.com.br','João Pessoa','Mangabeira','1388','Avenida Hilton Souto');
+
+-- Kits de Instalações
+insert into KitDeInstalacao values
+('1','730','15000'),
+('2','735','15500'),
+('3','735','14980'),
+('4','735','15200'),
+('5','1500','21000'),
+('6','1470','21230'),
+('7','1470','19000'),
+('8','1500','20000'),
+('9','3000','25500'),
+('10','3000','24990'),
+('11','3000','24999'),
+('12','3000','25500'),
+('13','4500','30000'),
+('14','4500','31200'),
+('15','4500','30250'),
+('16','10000','50000'),
+('17','10000','48600'),
+('18','30000','100000'),
+('19','30000','98000'),
+('20','30000','92000');
+
+-- Kit Possuido
+insert into KitPossuido values
+('1','1'),
+('1','2'),
+('1','3'),
+('1','4'),
+('2','11'),
+('2','12'),
+('2','13'),
+('2','14'),
+('2','15'),
+('3','1'),
+('3','2'),
+('3','3'),
+('3','4'),
+('4','18'),
+('4','19'),
+('4','20'),
+('5','4'),
+('5','6'),
+('5','7'),
+('5','10'),
+('5','11'),
+('5','13'),
+('5','20'),
+('6','13'),
+('6','14'),
+('6','15'),
+('6','16'),
+('6','17'),
+('6','18'),
+('6','20'),
+('7','5'),
+('7','6'),
+('7','7'),
+('7','8'),
+('7','9'),
+('7','10'),
+('7','12'),
+('8','8'),
+('8','9'),
+('8','10'),
+('9','1'),
+('9','2'),
+('9','3'),
+('9','4'),
+('9','5'),
+('9','6'),
+('9','7'),
+('10','10'),
+('10','11'),
+('10','12'),
+('10','13'),
+('10','14'),
+('10','15'),
+('10','17');
+
+-- TelEmpresas
+insert into TelEmpresas values
+('(83) 9 9832-7383','1'),
+('(83) 3245-3846','1'),
+('(83) 9 9637-9373','2'),
+('(83) 3247-4836','3'),
+('(83) 9 9826-4923','4'),
+('(83) 9 9636-5863','4'),
+('(83) 9 9683-2834','5'),
+('(83) 3290-9091','5'),
+('(83) 3354-1024','5'),
+('(83) 9 9863-4836','6'),
+('(83) 9 9863-5923','7'),
+('(83) 3278-5690','7'),
+('(83) 3271-4873','8'),
+('(83) 3257-4823','9'),
+('(83) 3284-3942','10'),
+('(83) 9 9648-5038','10');
+
+-- Executando as consultas
+-- 1
+select Codigo as 'Codigos de Kits Disponiveis em Campina Grande',PotenciaNominal,Preco from KitDeInstalacao inner join KitPossuido on KitDeInstalacao.Codigo=KitPossuido.CodigoKit inner join Empresa on Empresa.Cidade='Campina Grande' and Empresa.EmpresaID=KitPossuido.Empresa_ID;
+
+-- 2
+select count(*) as 'Quantidade de empresas em Campina Grande' from Empresa where Cidade='Campina Grande';
+
+-- 3
+select Nome,Email from Cliente;
